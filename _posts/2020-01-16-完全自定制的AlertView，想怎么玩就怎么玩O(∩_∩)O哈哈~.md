@@ -111,9 +111,8 @@ alert的样式变得是在子视图的样式，不变的是承载页，也就是
     typedef void(^CreateWrapAlertViewBlock)(UIView *alertView);
 
 ## 效果图
-
-![IMG_0102.PNG](https://upload-images.jianshu.io/upload_images/3061217-93ed88a1fedb0453.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![IMG_953CE020A5AD-1.jpeg](https://upload-images.jianshu.io/upload_images/3061217-b9c51e3df9ed082b.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://github.com/PaulPaulBoBo/docs/blob/master/img/3061217-93ed88a1fedb0453.PNG?raw=true)
+![](https://github.com/PaulPaulBoBo/docs/blob/master/img/3061217-b9c51e3df9ed082b.jpeg?raw=true)
 
 详细代码请至GitHub下载：[WrapAlertView](https://github.com/PaulPaulBoBo/WrapAlertView)
 如有问题请留言，谢谢！
