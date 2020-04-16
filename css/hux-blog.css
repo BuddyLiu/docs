@@ -355,10 +355,10 @@ pre code {
   #huxblog_navbar .navbar-collapse {
     height: 0px;
     transform: scaleY(0);
-    transform-origin: top right;
+    transform-origin: top left;
     transition: transform 400ms cubic-bezier(0.32, 1, 0.23, 1) 0ms;
     -webkit-transform: scaleY(0);
-    -webkit-transform-origin: top right;
+    -webkit-transform-origin: top left;
     -webkit-transition: -webkit-transform 400ms cubic-bezier(0.32, 1, 0.23, 1) 0ms;
   }
   #huxblog_navbar li {
