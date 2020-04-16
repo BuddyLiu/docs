@@ -1,53 +1,39 @@
-# Site settings
-title: Paul
-SEOTitle: Paul | Docs
-header-img: img/post-bg-desk.jpg
-email: 13621905107@163.com
-description: "Daily docs."
-keyword: "iOS, Apple, iPhone"
-url: "https://paulpaulbobo.github.io/docs/"          # your host, for absolute URL
-baseurl: "https://paulpaulbobo.github.io/docs/"      # for example, '/blog' if your blog hosted on 'host/blog'
-github_repo: "https://github.com/PaulPaulBoBo/docs.git" # you code repository
+title: Paul # 页面上展示的标题
+SEOTitle: Paul | Docs # 标签展示的标题
+header-img: img/post-bg-desk.jpg # 页面顶部图片
+email: 13621905107@163.com # 邮箱地址
+description: "Daily docs." # 顶部子标题
+keyword: "iOS, Apple, iPhone" # 关键字
+url: "https://paulpaulbobo.github.io/docs/"          # 网站首页地址
+baseurl: "https://paulpaulbobo.github.io/docs/"      # 网站首页地址
+github_repo: "https://github.com/PaulPaulBoBo/docs.git" # 网站代码github地址
 
-# Sidebar settings
-sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "Goals determine what you going to be!"
-sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+# 右侧边栏设置
+sidebar: true # 是否展示侧边栏
+sidebar-about-description: "Paul" # 头像下方的描述
+sidebar-avatar: /img/about-BY-gentle.jpg      # 头像地址
 
+# 社交网络设置
+RSS: true #是否展示RSS(聚合内容)
+github_username: PaulPaulBoBo # github用户名
+jianshu_username: 327fb570a3e8 # 简书用户ID
 
-
-# SNS settings
-RSS: true
-# weibo_username:     qiubaiying
-# zhihu_username:     qiubaiying
-github_username:    PaulPaulBoBo
-# facebook_username:  baiying.qiu.7
-jianshu_username:   327fb570a3e8
-#twitter_username:   qiubaiying
-
-
-
-
-# Build settings
-# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
-permalink: pretty
-paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
-anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
-
-
+# Jekyll 构建设置
+# date /:categories/:year/:month/:day/:title:output_ext
+# pretty /:categories/:year/:month/:day/:title/
+# ordinal /:categories/:year/:y_day/:title:output_ext
+# weekdate /:categories/:year/W:week/:short_day/:title:output_ext
+# none /:categories/:title:output_ext
+permalink: pretty # 设置构造的文件名格式
+paginate: 10 # 设置单页展示的文章数
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"] # 排除的目录或文件
+anchorjs: true
 
 # Gems
-# from PR#40, to support local preview for Jekyll 3.0
 gems: [jekyll-paginate]
 
-
-
-
-# Markdown settings
-# replace redcarpet to kramdown,
-# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
-# document: http://jekyllrb.com/docs/configuration/#kramdown
+# Markdown 设置
+# kramdown文档: http://jekyllrb.com/docs/configuration/#kramdown
 markdown: kramdown
 highlighter: rouge
 kramdown:
@@ -80,23 +66,17 @@ kramdown:
 # ga_track_id: 'UA-90855596-1'            # Format: UA-xxxxxx-xx
 # ga_domain: qiubaiying.top               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
+# 首页 Tags
+featured-tags: true # 是否使用首页标签
+featured-condition-size: 1 # 相同标签数量大于这个数，才会出现在首页
 
-
-
-
-# Featured Tags
-featured-tags: true                     # 是否使用首页标签
-featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
-
-
-
-# Progressive Web Apps
-chrome-tab-theme-color: "#000000"
+# 手机端web配置
+chrome-tab-theme-color: "#f5f5f5" # 主题颜色
 service-worker: true
 
 
 
-# Friends
+# 网站链接
 friends: [
     {
         title: "Paul",
