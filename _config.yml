@@ -4,14 +4,14 @@ header-img: img/post-bg-desk.jpg # 页面顶部图片
 email: 13621905107@163.com # 邮箱地址
 description: "Daily docs." # 顶部子标题
 keyword: "iOS, Apple, iPhone" # 关键字
-url: "https://paulpaulbobo.github.io/docs/"          # 网站首页地址
-baseurl: "https://paulpaulbobo.github.io/docs/"      # 网站首页地址
+url: "https://paulpaulbobo.github.io/docs"          # 网站首页地址
+baseurl: "https://paulpaulbobo.github.io/docs"      # 网站首页地址
 github_repo: "https://github.com/PaulPaulBoBo/docs.git" # 网站代码github地址
 
 # 右侧边栏设置
-sidebar: true # 是否展示侧边栏
+sidebar: false # 是否展示侧边栏
 sidebar-about-description: "Paul" # 头像下方的描述
-sidebar-avatar: /img/about-BY-gentle.jpg      # 头像地址
+#sidebar-avatar: /img/about-BY-gentle.jpg      # 头像地址
 
 # 社交网络设置
 RSS: true #是否展示RSS(聚合内容)
