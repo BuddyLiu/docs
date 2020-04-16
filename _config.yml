@@ -11,7 +11,6 @@ github_repo: "https://github.com/PaulPaulBoBo/docs.git" # 网站代码github地�
 # 右侧边栏设置
 sidebar: false # 是否展示侧边栏
 sidebar-about-description: "Paul" # 头像下方的描述
-#sidebar-avatar: /img/about-BY-gentle.jpg      # 头像地址
 
 # 社交网络设置
 RSS: false #是否展示RSS(聚合内容)
@@ -55,7 +54,7 @@ friends: [
         title: "Paul",
         href: "https://paulpaulbobo.github.io/docs/"
     },{
-        title: "简书·Paul",
+        title: "简书",
         href: "http://www.jianshu.com/u/327fb570a3e8"
     },{
         title: "Apple",
