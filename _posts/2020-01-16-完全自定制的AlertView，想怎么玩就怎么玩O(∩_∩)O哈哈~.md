@@ -27,7 +27,7 @@ GitHub下载：[WrapAlertView](https://github.com/PaulPaulBoBo/WrapAlertView)
 
 该样式可自适应内容，当内容过多时，可滑动查看。
 
-![](https://upload-images.jianshu.io/upload_images/3061217-fb84aba3b482b275.PNG?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://github.com/PaulPaulBoBo/docs/blob/master/img/3061217-fb84aba3b482b275.PNG)
 
     [[WrapAlertView shareAlertView] showAlertViewBlock:^(UIView *alertView) {
                     WrapCustomView *view = [[WrapCustomView alloc] initSimple];
