@@ -14,7 +14,7 @@ sidebar-about-description: "Paul" # 头像下方的描述
 #sidebar-avatar: /img/about-BY-gentle.jpg      # 头像地址
 
 # 社交网络设置
-RSS: true #是否展示RSS(聚合内容)
+RSS: false #是否展示RSS(聚合内容)
 github_username: PaulPaulBoBo # github用户名
 jianshu_username: 327fb570a3e8 # 简书用户ID
 
