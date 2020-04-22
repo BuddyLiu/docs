@@ -1,0 +1,296 @@
+---
+layout:     post
+title:      Mac+Apache 搭建本地文件服务器
+subtitle:   Mac+Apache 搭建本地文件服务器
+date:       2020-04-22
+author:     Paul
+header-img: img/post-bg-debug.png
+catalog: true
+tags:
+- Mac
+- 文件服务器
+- iOS
+- Apache
+--- 
+
+
+# Mac+Apache 搭建本地文件服务器
+
+### 搭建步骤
+
+启动Apache
+> sudo apachectl -k start
+ 
+查看版本(可选步骤)
+> httpd -v
+
+备份配置文件
+> sudo cp httpd.conf httpd.conf.bak
+
+新建一个Sites文件夹用于存放网站文件 
+> mkdir ~/Sites
+
+编辑httpd.conf(此处需要输入电脑密码)
+
+> sudo nano httpd.conf
+> 
+> [参考httpd.conf文件详情](https://paulpaulbobo.github.io/docs/_posts/httpd.conf文件详情.txt)
+
+注释掉默认的网站目录,找到下面的代码，在代码前加上一个‘#’
+> 
+
+```
+# DocumentRoot "/Library/WebServer/Documents"
+# <Directory "/Library/WebServer/Documents">
+    #
+    # Possible values for the Options directive are "None", "All",
+    # or any combination of:
+    #   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews
+    #
+    # Note that "MultiViews" must be named *explicitly* --- "Options All"
+    # doesn't give it to you.
+    #
+    # The Options directive is both complicated and important.  Please see
+    # http://httpd.apache.org/docs/2.4/mod/core.html#options
+    # for more information.
+    #
+#    Options FollowSymLinks Multiviews
+#    MultiviewsMatch Any
+
+    #
+    # AllowOverride controls what directives may be placed in .htaccess files.
+    # It can be "All", "None", or any combination of the keywords:
+    #   AllowOverride FileInfo AuthConfig Limit
+    #
+#    AllowOverride None
+
+    #
+    # Controls who can get stuff from this server.
+    #
+#    Require all granted
+# </Directory>
+
+```
+
+
+添加下面代码，其中的“用户名”根据自己的电脑名修改，当然也可以指定电脑上任意位置
+
+```
+ DocumentRoot "/Users/用户名/Sites"
+ <Directory "/Users/用户名/Sites"> 
+    Options FollowSymLinks Multiviews
+    MultiviewsMatch Any
+    AllowOverride All
+    Require all granted
+</Directory>
+```
+
+找到下面代码，如果加了注释，将注释打开
+
+```
+LoadModule proxy_module libexec/apache2/mod_proxy.so
+LoadModule proxy_ftp_module libexec/apache2/mod_proxy_ftp.so
+LoadModule proxy_http_module libexec/apache2/mod_proxy_http.so
+LoadModule php7_module libexec/apache2/libphp7.so
+
+```
+
+修改完成之后保存文件
+
+* ctrl+O
+* ctrl+T
+* 选择 httpd.conf 文件，回车
+* ctrl+X 
+
+复制php.ini
+> sudo cp /etc/php.ini.default /etc/php.ini
+
+新建一个用于存储上传文件的目录
+> mkdir ~/Sites/upload
+
+设置该目录的权限(777 代表可读可写可执行)
+> chmod 777 ~/Sites/upload
+
+新建upload.html文件
+
+```
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Upload Form</title>
+	</head>
+	<body>
+		<form action="upload_file.php" method="post" enctype="multipart/form-data">
+	    	<label for="file">file name：</label>
+	    	<input type="file" name="file" id="file"><br>
+	    	<input type="submit" name="submit" value="提交">
+		</form>
+	</body>
+</html>
+
+```
+
+新建upload_file.php文件
+
+```
+<?php
+    echo $_FILES["file"]["size"];
+    $extension = end($temp);     // 获取文件后缀名
+    echo "上传文件名: " . $_FILES["file"]["name"] . "<br>";
+    echo "文件类型: " . $_FILES["file"]["type"] . "<br>";
+    echo "文件大小: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+    echo "文件临时存储的位置: " . $_FILES["file"]["tmp_name"] . "<br>";
+    move_uploaded_file($_FILES["file"]["tmp_name"], "/Users/用户名/Sites/upload/" . $_FILES["file"]["name"]);
+    echo "文件存储在: " . "/Users/用户名/Sites/upload/" . $_FILES["file"]["name"];
+?>
+```
+
+重新启动Apache
+> sudo apachectl -k restart
+
+此时打开[upload.html](http://127.0.0.1/upload.html),
+
+即可看到页面
+
+![img](https://paulpaulbobo.github.io/docs/img/1587546593910.jpg)
+
+停用Apache的命令是
+> sudo apachectl stop
+
+
+
+### iOS应用上传文件到文件服务器的代码如下：
+
+目录模型文件
+
+```
+@interface Model_db_List : NSObject
+
+@property (nonatomic,strong) NSMutableArray <Model_db_List *>*subPaths;
+
+@property (nonatomic, assign) BOOL isDir;
+
+@property (nonatomic,copy) NSString *fileName;
+
+@property (nonatomic,copy) NSString *path;
+
+@end
+
+@implementation Model_db_List
+
+- (NSString *)description
+{
+    return self.fileName;
+}
+
+@end
+```
+
+AFN文件上传方法：
+
+```
+// 单个文件上传
+-(void)postWithPath:(NSString *)path name:(NSString *)name urlStr:(NSString *)urlStr {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", @"multipart/form-data", nil];
+    
+    [manager POST:urlStr parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        [formData appendPartWithFileData:data name:@"file" fileName:name mimeType:@""];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }];
+}
+
+// 多文件上传
+-(void)postArr:(NSArray *)datas urlStr:(NSString *)urlStr {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/xml", @"text/plain", @"multipart/form-data", nil];
+    
+    [manager POST:urlStr parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        for (int i = 0; i < datas.count; i++) {
+            Model_db_List *fileItem = datas[i];
+            NSData *data = [NSData dataWithContentsOfFile:fileItem.path];
+            [formData appendPartWithFileData:data name:@"file" fileName:fileItem.fileName mimeType:@""];
+        }
+        
+    } progress:^(NSProgress * _Nonnull uploadProgress) {        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    }];
+}
+```
+
+调用方法：
+
+```
+
+NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+NSString *documentsDirectory = [paths objectAtIndex:0];
+NSMutableArray *files = [self filePathArray:documentsDirectory];
+NSString *urlStr = @"http://xxx.xxx.xxx.xxx/upload_file.php";
+
+// 单文件多次上传
+for (int i = 0; i < files.count; i++) {
+    Model_db_List *fileItem = files[i];
+    [self postWithPath:fileItem.path name:fileItem.fileName urlStr:urlStr];
+}
+
+// 多文件一次上传,目前服务器代码还有问题
+// [self postArr:files urlStr:urlStr];
+
+```
+
+递归遍历当前文件夹下的所有文件
+
+```
+- (NSMutableArray *)filePathArray:(NSString *)directoryPath
+{
+    NSMutableArray *mFilePathArray = [NSMutableArray array];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSArray *array = [fileManager contentsOfDirectoryAtPath:directoryPath error:nil];
+    __block BOOL isDir = YES;
+    [array enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        Model_db_List *model = [Model_db_List new];;
+        
+        NSString *path = [directoryPath stringByAppendingPathComponent:obj];
+        if ([fileManager fileExistsAtPath:path isDirectory:&isDir]){
+            
+            model = [Model_db_List new];
+            model.isDir = isDir;
+            if (isDir) {
+                model.subPaths = [self filePathArray:path];
+            }
+        }
+        if (model) {
+            model.fileName = obj;
+            model.path = path;
+            [mFilePathArray addObject:model];
+        }
+    }];
+    return mFilePathArray;
+}
+```
+
+### 遗留的问题
+
+> 文件服务器暂时还不能接收多文件，只能单文件接收
+
+```
+fixFilesArray($_FILES['file']);
+foreach ($_FILES['file'] as $position => $file) {
+    // should output array with indices name, type, tmp_name, error, size
+    // 此处还有问题
+    move_uploaded_file($file["tmp_name"], "/Users/用户名/Sites/upload/gc/" . $_FILES["file"]["name"]);
+}
+```
+
+
+
+###### 引用：
+
+> [Mac下使用Apache快速搭建文件上传服务器](https://blog.csdn.net/toopoo/article/details/90404695)
