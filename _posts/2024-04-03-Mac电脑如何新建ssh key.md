@@ -1,3 +1,17 @@
+---
+layout:     post
+title:      在Mac电脑上新建SSH Key的详细步骤
+subtitle:   在Mac电脑上新建SSH Key的详细步骤
+date:       2024-04-03
+author:     Paul
+header-img: img/post-bg-debug.png
+catalog: true
+tags:
+- Mac
+- iOS
+- SSH
+--- 
+
 **在Mac电脑上新建SSH Key的详细步骤**
 
 SSH（Secure Shell）是一种加密的网络传输协议，允许用户安全地登录到远程服务器并执行命令。而SSH key则是一对用于身份验证的密钥，包括公钥和私钥。在Mac电脑上新建SSH key是保障远程连接安全的重要步骤。本文将详细介绍如何在Mac上生成SSH密钥对，并将其用于远程连接。
