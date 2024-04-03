@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     keynote
 title:      在Mac电脑上新建SSH Key的详细步骤
 subtitle:   在Mac电脑上新建SSH Key的详细步骤
 date:       2024-04-03
