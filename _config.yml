@@ -1,6 +1,6 @@
 title: Paul # 页面上展示的标题
 SEOTitle: Paul | Docs # 标签展示的标题
-header-img: img/404-bg.jpg # 页面顶部图片
+header-img: img/post-bg-debug.jpg # 页面顶部图片
 email: 13621905107@163.com # 邮箱地址
 description: "Daily docs." # 顶部子标题
 keyword: "iOS, Apple, iPhone" # 关键字
@@ -9,13 +9,14 @@ baseurl: "https://paulpaulbobo.github.io/docs"      # 网站首页地址
 github_repo: "https://github.com/PaulPaulBoBo/docs.git" # 网站代码github地址
 
 # 右侧边栏设置
-sidebar: false # 是否展示侧边栏
+sidebar: true # 是否展示侧边栏
 sidebar-about-description: "Paul" # 头像下方的描述
 
 # 社交网络设置
-RSS: false #是否展示RSS(聚合内容)
+RSS: true #是否展示RSS(聚合内容)
 github_username: PaulPaulBoBo # github用户名
 jianshu_username: 327fb570a3e8 # 简书用户ID
+bokeyuan_username: PaulpauL #博客园用户名
 
 # Jekyll 构建设置
 # date /:categories/:year/:month/:day/:title:output_ext
@@ -24,7 +25,7 @@ jianshu_username: 327fb570a3e8 # 简书用户ID
 # weekdate /:categories/:year/W:week/:short_day/:title:output_ext
 # none /:categories/:title:output_ext
 permalink: pretty # 设置构造的文件名格式
-paginate: 10 # 设置单页展示的文章数
+paginate: 20 # 设置单页展示的文章数
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"] # 排除的目录或文件
 anchorjs: true
 
@@ -40,7 +41,7 @@ kramdown:
 
 # 首页 Tags
 featured-tags: true # 是否使用首页标签
-featured-condition-size: 1 # 相同标签数量大于这个数，才会出现在首页
+featured-condition-size: 2 # 相同标签数量大于这个数，才会出现在首页
 
 # 手机端web配置
 chrome-tab-theme-color: "#f5f5f5" # 主题颜色
@@ -49,20 +50,6 @@ service-worker: true
 
 
 # 网站链接
-friends: [
-    {
-        title: "Paul",
-        href: "https://paulpaulbobo.github.io/docs/"
-    },{
-        title: "简书",
-        href: "http://www.jianshu.com/u/327fb570a3e8"
-    },{
-        title: "Apple",
-        href: "https://apple.com"
-    },{
-        title: "Apple Developer",
-        href: "https://developer.apple.com/"
-    }
-]
+friends: []
 
 theme: jekyll-theme-cayman
