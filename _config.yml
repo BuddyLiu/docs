@@ -1,55 +1,135 @@
-title: Paul # 页面上展示的标题
-SEOTitle: Paul | Docs # 标签展示的标题
-header-img: img/post-bg-debug.jpg # 页面顶部图片
-email: 13621905107@163.com # 邮箱地址
-description: "Daily docs." # 顶部子标题
-keyword: "iOS, Apple, iPhone" # 关键字
-url: "https://paulpaulbobo.github.io/docs"          # 网站首页地址
-baseurl: "https://paulpaulbobo.github.io/docs"      # 网站首页地址
-github_repo: "https://github.com/PaulPaulBoBo/docs.git" # 网站代码github地址
+# ------------
+# 基础设置
+# ------------
 
+## 网站作者信息
+author:
+  # 网站作者名
+  name: Paul
+  # 邮箱地址
+  email: 13621905107@163.com
+
+# 这个设置定义了你的网站的标题。这个标题通常会显示在网站的标题栏或者浏览器标签上。
+title: Paul
+
+# 描述了你的网站的简短说明。通常被用来描述网站的内容或者主题。
+description: "Daily docs."
+
+# 这个设置指定了你的网站的基础 URL 地址。当你发布网站时，Jekyll 使用这个设置来生成网站内部链接。
+url: "https://paulpaulbobo.github.io/docs"
+
+# 网站首页地址
+baseurl: "/index.html"
+
+# 指定了网站使用的主题。Jekyll 主题是一种预先设计和样式化的模板，用于定义网站的外观和布局。
+theme: Poole # jekyll-theme-cayman
+
+# 这个设置允许你列出你想要在网站中使用的 Jekyll 插件。插件可以用来扩展 Jekyll 的功能，比如自动生成 sitemap、优化图片等。
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 标签展示的标题
+SEOTitle: Paul | Docs
+
+# 页面顶部图片
+header-img: img/post-bg-debug.jpg
+
+# 关键字
+keyword: "iOS, Apple, iPhone, 笔记, 技术, swift, OC, Objective-C, Python, 疑难问题, 面试, 计算机, HTML, JS, CSS, vue, .net, 数据结构, 算法"
+
+# 网站代码github地址
+github_repo: "https://github.com/PaulPaulBoBo/docs.git"
+
+# 允许你为不同类型的文档设置默认值。比如你可以设置所有文章的默认布局。
+defaults:
+  -
+    scope:
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Paul"
+      header-img: img/post-bg-debug.png
+      catalog: true
+
+# ------------
 # 右侧边栏设置
-sidebar: true # 是否展示侧边栏
-sidebar-about-description: "Paul" # 头像下方的描述
+# ------------
 
+# 是否展示侧边栏
+sidebar: true
+
+# 头像下方的描述
+sidebar-about-description: "Paul"
+
+
+# ------------
 # 社交网络设置
-RSS: true #是否展示RSS(聚合内容)
-github_username: PaulPaulBoBo # github用户名
-jianshu_username: 327fb570a3e8 # 简书用户ID
-bokeyuan_username: PaulpauL #博客园用户名
+# ------------
 
+#是否展示RSS(聚合内容)
+RSS: true 
+
+# github用户名
+github_username: PaulPaulBoBo
+
+# 简书用户ID
+jianshu_username: 327fb570a3e8
+
+#博客园用户名
+bokeyuan_username: PaulpauL
+
+# ------------
 # Jekyll 构建设置
+# ------------
+
 # date /:categories/:year/:month/:day/:title:output_ext
 # pretty /:categories/:year/:month/:day/:title/
 # ordinal /:categories/:year/:y_day/:title:output_ext
 # weekdate /:categories/:year/W:week/:short_day/:title:output_ext
 # none /:categories/:title:output_ext
-permalink: pretty # 设置构造的文件名格式
-paginate: 20 # 设置单页展示的文章数
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"] # 排除的目录或文件
+
+# 设置构造的文件名格式
+permalink: pretty
+
+# 设置单页展示的文章数
+paginate: 20
+
+# 列出了你不想包含在 Jekyll 构建中的文件或目录。
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 anchorjs: true
 
 # Gems
 gems: [jekyll-paginate]
 
+# ------------
 # Markdown 设置
+# ------------
+
 # kramdown文档: http://jekyllrb.com/docs/configuration/#kramdown
 markdown: kramdown
 highlighter: rouge
 kramdown:
-  input: GFM                            # use Github Flavored Markdown !important
+  # use Github Flavored Markdown !important
+  input: GFM
 
+# ------------
 # 首页 Tags
-featured-tags: true # 是否使用首页标签
-featured-condition-size: 2 # 相同标签数量大于这个数，才会出现在首页
+# ------------
 
+# 是否使用首页标签
+featured-tags: true
+
+# 相同标签数量大于这个数，才会出现在首页
+featured-condition-size: 2
+
+# ------------
 # 手机端web配置
-chrome-tab-theme-color: "#f5f5f5" # 主题颜色
+# ------------
+
+# 主题颜色
+chrome-tab-theme-color: "#f5f5f5"
 service-worker: true
-
-
 
 # 网站链接
 friends: []
-
-theme: jekyll-theme-cayman
