@@ -19,10 +19,10 @@ description: "Daily docs."
 url: "https://paulpaulbobo.github.io/docs"
 
 # 网站首页地址
-baseurl: "/index.html"
+baseurl: "https://paulpaulbobo.github.io/docs"
 
 # 指定了网站使用的主题。Jekyll 主题是一种预先设计和样式化的模板，用于定义网站的外观和布局。
-theme: Poole # jekyll-theme-cayman
+theme: jekyll-theme-cayman
 
 # 这个设置允许你列出你想要在网站中使用的 Jekyll 插件。插件可以用来扩展 Jekyll 的功能，比如自动生成 sitemap、优化图片等。
 plugins:
