@@ -1,5 +1,5 @@
 ---
-title:      深入探讨：ARC（Automatic Reference Counting）与手动内存管理的区别及工作原理
+title:      探讨：ARC（Automatic Reference Counting）与手动内存管理的区别及工作原理
 date:       2024-04-06
 tags:
 - iOS

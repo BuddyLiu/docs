@@ -1,5 +1,5 @@
 ---
-title:      深入解析 iOS 中的响应链（Responder Chain）
+title:      解析 iOS 中的响应链（Responder Chain）
 date:       2024-04-06
 tags:
 - 响应式编程

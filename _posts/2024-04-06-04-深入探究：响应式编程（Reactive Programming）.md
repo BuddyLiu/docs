@@ -1,5 +1,5 @@
 ---
-title:      深入探究：响应式编程（Reactive Programming）
+title:      探究：响应式编程（Reactive Programming）
 date:       2024-04-06
 tags:
 - 响应式编程

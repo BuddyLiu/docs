@@ -1,5 +1,5 @@
 ---
-title:      深入比较 Swift 中的闭包和 Objective-C 中的 Block
+title:      比较 Swift 中的闭包和 Objective-C 中的 Block
 date:       2024-04-06
 tags:
 - Swift

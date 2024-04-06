@@ -1,5 +1,5 @@
 ---
-title:      深入理解 Swift 中闭包与 Objective-C 中 Block 的外部变量捕获机制
+title:      理解 Swift 中闭包与 Objective-C 中 Block 的外部变量捕获机制
 date:       2024-04-06
 tags:
 - Swift

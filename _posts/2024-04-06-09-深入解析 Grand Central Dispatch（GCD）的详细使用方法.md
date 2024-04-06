@@ -1,5 +1,5 @@
 ---
-title:      深入解析 Grand Central Dispatch（GCD）的详细使用方法
+title:      解析 Grand Central Dispatch（GCD）的详细使用方法
 date:       2024-04-06
 tags:
 - iOS

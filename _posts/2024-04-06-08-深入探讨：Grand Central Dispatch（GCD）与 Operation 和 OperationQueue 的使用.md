@@ -1,5 +1,5 @@
 ---
-title:      深入探讨：Grand Central Dispatch（GCD）与 Operation 和 OperationQueue 的使用
+title:      探讨：Grand Central Dispatch（GCD）与 Operation 和 OperationQueue 的使用
 date:       2024-04-06
 tags:
 - iOS

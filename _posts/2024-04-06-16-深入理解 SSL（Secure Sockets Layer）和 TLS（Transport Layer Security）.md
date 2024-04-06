@@ -1,5 +1,5 @@
 ---
-title:      深入理解 SSL（Secure Sockets Layer）和 TLS（Transport Layer Security）
+title:      理解 SSL（Secure Sockets Layer）和 TLS（Transport Layer Security）
 date:       2024-04-06
 tags:
 - 网络
