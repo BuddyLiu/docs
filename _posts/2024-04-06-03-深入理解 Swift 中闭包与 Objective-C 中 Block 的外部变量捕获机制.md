@@ -7,7 +7,6 @@ tags:
 - block
 --- 
 
-# 深入理解 Swift 中闭包与 Objective-C 中 Block 的外部变量捕获机制
 
 在 Swift 中的闭包和 Objective-C 中的 Block 都支持捕获外部变量，使得在闭包或 Block 内部可以访问外部作用域的变量。本文将深入探讨它们在捕获外部变量方面的机制和区别。
 

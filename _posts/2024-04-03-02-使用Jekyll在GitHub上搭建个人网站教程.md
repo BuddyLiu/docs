@@ -6,8 +6,6 @@ tags:
 - Jekyll
 --- 
 
-# 使用Jekyll在GitHub上搭建个人网站教程
-
 ## 一、前言
 
 Jekyll是一个简单的、博客感知的、静态站点生成器。它使用Markdown（或其他标记语言）来格式化文本，然后通过Liquid模板引擎来布局网站，最后生成一个完整的静态网站。GitHub Pages则允许你在GitHub上直接托管你的网站，并且可以与Jekyll完美结合。下面我们就来详细介绍一下如何使用Jekyll在GitHub上搭建个人网站。

@@ -7,7 +7,6 @@ tags:
 - block
 --- 
 
-# 深入比较 Swift 中的闭包和 Objective-C 中的 Block
 
 在 iOS 开发中，闭包（Swift）和 Block（Objective-C）都是用于实现匿名函数的重要概念。它们在很多方面都有相似之处，但也存在一些显著的差异。本文将从应用和原理两个层面对 Swift 中的闭包和 Objective-C 中的 Block 进行比较和分析。
 

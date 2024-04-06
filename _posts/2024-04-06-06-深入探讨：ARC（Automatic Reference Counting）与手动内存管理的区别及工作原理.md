@@ -7,7 +7,6 @@ tags:
 - 内存管理
 --- 
 
-# 深入探讨：ARC（Automatic Reference Counting）与手动内存管理的区别及工作原理
 
 在 iOS 和 macOS 开发中，内存管理是一个至关重要的话题。在过去，手动内存管理是一项繁琐且容易出错的任务，而引入了 ARC（Automatic Reference Counting，自动引用计数）之后，内存管理变得更加简单和安全。本文将详细讨论 ARC 和手动内存管理之间的区别，并解释 ARC 的工作原理。
 

@@ -6,7 +6,6 @@ tags:
 - 多线程
 --- 
 
-# 深入探讨：Grand Central Dispatch（GCD）与 Operation 和 OperationQueue 的使用
 
 在 iOS 开发中，Grand Central Dispatch（GCD）和 Operation 和 OperationQueue 是两种常用的多线程编程技术，它们各有优劣，适用于不同的场景。本文将详细讲解它们在不同情况下的具体使用，并提供 Swift 和 Objective-C 语言的示例。
 
