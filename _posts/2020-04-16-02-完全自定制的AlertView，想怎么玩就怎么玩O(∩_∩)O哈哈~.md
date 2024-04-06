@@ -6,6 +6,8 @@ tags:
 - iOS
 --- 
 
+# 完全自定制的AlertView，想怎么玩就怎么玩O(∩_∩)O哈哈~
+
 GitHub下载：[WrapAlertView](https://github.com/PaulPaulBoBo/WrapAlertView)
 
 ## 背景
