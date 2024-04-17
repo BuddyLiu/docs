@@ -137,11 +137,10 @@ layout: default
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
-                <!-- Feature Tags -->
                 {% if site.featured-tags %}
                 <section>
                     <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">Feature Tags</a></h5>
+                    <h5><a href="/tags/">分类标签</a></h5>
                     <div class="tags">
                         {% for tag in site.tags %}
                             {% if tag[1].size > {{site.featured-condition-size}} %}
