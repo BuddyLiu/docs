@@ -5,21 +5,21 @@
 ## 网站作者信息
 author:
   # 网站作者名
-  name: Paul
+  name: Buddy
   # 邮箱地址
   email: 13621905107@163.com
 
 # 这个设置定义了你的网站的标题。这个标题通常会显示在网站的标题栏或者浏览器标签上。
-title: Paul
+title: Buddy
 
 # 描述了你的网站的简短说明。通常被用来描述网站的内容或者主题。
 description: "Daily docs."
 
 # 这个设置指定了你的网站的基础 URL 地址。当你发布网站时，Jekyll 使用这个设置来生成网站内部链接。
-url: "https://paulpaulbobo.github.io/docs"
+url: "https://buddyliu.github.io/docs"
 
 # 网站首页地址
-baseurl: "https://paulpaulbobo.github.io/docs"
+baseurl: "https://buddyliu.github.io/docs"
 
 # 指定了网站使用的主题。Jekyll 主题是一种预先设计和样式化的模板，用于定义网站的外观和布局。
 theme: jekyll-theme-cayman
@@ -30,7 +30,7 @@ plugins:
   - jekyll-seo-tag
 
 # 标签展示的标题
-SEOTitle: Paul | Docs
+SEOTitle: Buddy | Docs
 
 # 页面顶部图片
 header-img: img/post-bg-debug.jpg
@@ -39,7 +39,7 @@ header-img: img/post-bg-debug.jpg
 keyword: "iOS, Apple, iPhone, 笔记, 技术, swift, OC, Objective-C, Python, 疑难问题, 面试, 计算机, HTML, JS, CSS, vue, .net, 数据结构, 算法"
 
 # 网站代码github地址
-github_repo: "https://github.com/PaulPaulBoBo/docs.git"
+github_repo: "https://github.com/BuddyLiu/docs.git"
 
 # 允许你为不同类型的文档设置默认值。比如你可以设置所有文章的默认布局。
 defaults:
@@ -48,7 +48,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      author: "Paul"
+      author: "Buddy"
       header-img: img/post-bg-debug.png
       catalog: true
 
@@ -60,7 +60,7 @@ defaults:
 sidebar: true
 
 # 头像下方的描述
-sidebar-about-description: "Paul"
+sidebar-about-description: "Buddy"
 
 
 # ------------
@@ -71,7 +71,7 @@ sidebar-about-description: "Paul"
 RSS: true 
 
 # github用户名
-github_username: PaulPaulBoBo
+github_username: BuddyLiu
 
 # 简书用户ID
 jianshu_username: 327fb570a3e8
