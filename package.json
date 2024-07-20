@@ -6,9 +6,9 @@
     "homepage": "https://github.com/BuddyLiu/",
     "repository": {
         "type": "git",
-        "url": "https://BuddyLiu.github.com/docs.git"
+        "url": "https://buddyliu.github.com/docs.git"
     },
-    "bugs": "https://BuddyLiu.github.com/docs/issues",
+    "bugs": "https://buddyliu.github.com/docs/issues",
     "devDependencies": {
         "grunt": "~0.4.5",
         "grunt-contrib-less": "~0.11.4",
