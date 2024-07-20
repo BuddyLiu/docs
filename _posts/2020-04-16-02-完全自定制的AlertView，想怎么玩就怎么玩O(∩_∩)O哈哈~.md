@@ -6,7 +6,7 @@ tags:
 - iOS
 --- 
 
-GitHub下载：[WrapAlertView](https://github.com/BuddyLiu/WrapAlertView)
+GitHub下载：[WrapAlertView](https://github.com/PaulPaulBoBo/WrapAlertView)
 
 ## 背景
 对话框对于APP来说是比较常用的控件之一。系统提供了基础的对话框类UIAlertView以及后来高版本新加的UIAlertController，可以满足基本的APP需求。
@@ -22,7 +22,7 @@ GitHub下载：[WrapAlertView](https://github.com/BuddyLiu/WrapAlertView)
 
 该样式可自适应内容，当内容过多时，可滑动查看。
 
-![pic](https://github.com/BuddyLiu/docs/img/3061217-fb84aba3b482b275.PNG)
+![pic](https://paulpaulbobo.github.io/docs/img/3061217-fb84aba3b482b275.PNG)
 
     [[WrapAlertView shareAlertView] showAlertViewBlock:^(UIView *alertView) {
                     WrapCustomView *view = [[WrapCustomView alloc] initSimple];
@@ -106,8 +106,8 @@ alert的样式变得是在子视图的样式，不变的是承载页，也就是
     typedef void(^CreateWrapAlertViewBlock)(UIView *alertView);
 
 ## 效果图
-![](https://github.com/BuddyLiu/docs/img/3061217-93ed88a1fedb0453.PNG)
-![](https://github.com/BuddyLiu/docs/img/3061217-b9c51e3df9ed082b.jpeg)
+![](https://paulpaulbobo.github.io/docs/img/3061217-93ed88a1fedb0453.PNG)
+![](https://paulpaulbobo.github.io/docs/img/3061217-b9c51e3df9ed082b.jpeg)
 
-详细代码请至GitHub下载：[WrapAlertView](https://github.com/BuddyLiu/WrapAlertView)
+详细代码请至GitHub下载：[WrapAlertView](https://github.com/PaulPaulBoBo/WrapAlertView)
 如有问题请留言，谢谢！
