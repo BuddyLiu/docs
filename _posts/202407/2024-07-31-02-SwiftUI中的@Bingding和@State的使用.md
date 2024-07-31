@@ -1,11 +1,9 @@
 ---
-title:      SwiftUI中的@Binding和@State的使用
+title:      SwiftUI中的Binding和State的使用
 date:       2024-07-31
 tags:
 - SwiftUI
 - 属性修饰符
-- @Binding
-- @State
 ---
 
 ## 一、@State
