@@ -94,7 +94,7 @@ bokeyuan_username: PaulpauL
 permalink: pretty
 
 # 设置单页展示的文章数
-paginate: 20
+paginate: 10
 
 # 列出了你不想包含在 Jekyll 构建中的文件或目录。
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
