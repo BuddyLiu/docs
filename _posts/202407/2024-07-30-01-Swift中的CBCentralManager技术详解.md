@@ -94,104 +94,107 @@ centralManager.cancelPeripheralConnection(peripheral)
 centralManager.registerForConnectionEvents(options: [CBConnectionEventMatchingOption.serviceUUIDs: [CBUUID(string: "...")!]])
 ```
 请注意，示例中省略了错误处理和多个外设管理的逻辑，以保持示例的简洁性。在实际应用中，您应该添加适当的错误处理和多外设管理逻辑。
+
 ### 3.4 API 原文翻译
+
 ```swift
-    /// @class CBCentralManager
-    /// @discussion 蓝牙中心角色的入口点。仅当中心管理器的状态为 CBCentralManagerStatePoweredOn 时，才应发出命令。
-    /// @available(iOS 5.0, *)
-    open class CBCentralManager : CBManager {
+
+/// @class CBCentralManager
+/// @discussion 蓝牙中心角色的入口点。仅当中心管理器的状态为 CBCentralManagerStatePoweredOn 时，才应发出命令。
+/// @available(iOS 5.0, *)
+open class CBCentralManager : CBManager {
     
-    /// @property delegate
-    /// @discussion 代理对象，将接收中心角色事件。
-    weak open var delegate: (any CBCentralManagerDelegate)?
+/// @property delegate
+/// @discussion 代理对象，将接收中心角色事件。
+weak open var delegate: (any CBCentralManagerDelegate)?
 
-    /// @property isScanning
-    /// @discussion 中心设备当前是否在扫描。
-    /// @available(iOS 9.0, *)
-    open var isScanning: Bool { get }
+/// @property isScanning
+/// @discussion 中心设备当前是否在扫描。
+/// @available(iOS 9.0, *)
+open var isScanning: Bool { get }
 
-    /// @method supports
-    /// @param features	要检查支持的一个或多个特性。
-    /// @discussion     返回一个布尔值，表示是否支持提供的特性。
-    /// @available(iOS 13.0, *)
-    open class func supports(_ features: CBCentralManager.Feature) -> Bool
+/// @method supports
+/// @param features	要检查支持的一个或多个特性。
+/// @discussion     返回一个布尔值，表示是否支持提供的特性。
+/// @available(iOS 13.0, *)
+open class func supports(_ features: CBCentralManager.Feature) -> Bool
 
-    /// @method init
-    /// @discussion 便利初始化方法。
-    public convenience init()
+/// @method init
+/// @discussion 便利初始化方法。
+public convenience init()
 
-    /// @method initWithDelegate:queue:
-    /// @param delegate 接收中心角色事件的代理。
-    /// @param queue    事件将分发的dispatch队列。如果为nil，则使用主队列。
-    /// @discussion     初始化调用。中心角色的事件将在提供的队列上分发。
-    public convenience init(delegate: (any CBCentralManagerDelegate)?, queue: dispatch_queue_t?)
+/// @method initWithDelegate:queue:
+/// @param delegate 接收中心角色事件的代理。
+/// @param queue    事件将分发的dispatch队列。如果为nil，则使用主队列。
+/// @discussion     初始化调用。中心角色的事件将在提供的队列上分发。
+public convenience init(delegate: (any CBCentralManagerDelegate)?, queue: dispatch_queue_t?)
 
-    /// @method initWithDelegate:queue:options:
-    /// @param delegate 接收中心角色事件的代理。
-    /// @param queue    事件将分发的dispatch队列。如果为nil，则使用主队列。
-    /// @param options  一个可选字典，指定管理器的选项。
-    /// @discussion     初始化调用。中心角色的事件将在提供的队列上分发。
-    /// @@seealso		CBCentralManagerOptionShowPowerAlertKey
-    /// @seealso		CBCentralManagerOptionRestoreIdentifierKey
-    /// @available(iOS 7.0, *)
-    public init(delegate: (any CBCentralManagerDelegate)?, queue: dispatch_queue_t?, options: [String : Any]? = nil)
+/// @method initWithDelegate:queue:options:
+/// @param delegate 接收中心角色事件的代理。
+/// @param queue    事件将分发的dispatch队列。如果为nil，则使用主队列。
+/// @param options  一个可选字典，指定管理器的选项。
+/// @discussion     初始化调用。中心角色的事件将在提供的队列上分发。
+/// @@seealso		CBCentralManagerOptionShowPowerAlertKey
+/// @seealso		CBCentralManagerOptionRestoreIdentifierKey
+/// @available(iOS 7.0, *)
+public init(delegate: (any CBCentralManagerDelegate)?, queue: dispatch_queue_t?, options: [String : Any]? = nil)
 
-    /// @method retrievePeripheralsWithIdentifiers:
-    /// @param identifiers	一个 NSUUID 对象的列表。
-    /// @discussion			尝试根据对应的 identifiers 检索 CBPeripheral 对象。
-    /// @@return				一个 CBPeripheral 对象的列表。
-    /// @available(iOS 7.0, *)
-    open func retrievePeripherals(withIdentifiers identifiers: [UUID]) -> [CBPeripheral]
+/// @method retrievePeripheralsWithIdentifiers:
+/// @param identifiers	一个 NSUUID 对象的列表。
+/// @discussion			尝试根据对应的 identifiers 检索 CBPeripheral 对象。
+/// @@return				一个 CBPeripheral 对象的列表。
+/// @available(iOS 7.0, *)
+open func retrievePeripherals(withIdentifiers identifiers: [UUID]) -> [CBPeripheral]
 
-    /// @method retrieveConnectedPeripheralsWithServices
-    /// @discussion 检索所有已连接到系统并实现 serviceUUIDs 中列出的任何服务的外设。
-     				请注意，此集合可能包括由其他应用程序连接的外设，这些外设需要通过{@link connectPeripheral:options:}在本地连接后才能使用。
-    /// @@return		一个 CBPeripheral 对象的列表。
-    /// @available(iOS 7.0, *)
-    open func retrieveConnectedPeripherals(withServices serviceUUIDs: [CBUUID]) -> [CBPeripheral]
+/// @method retrieveConnectedPeripheralsWithServices
+/// @discussion 检索所有已连接到系统并实现 serviceUUIDs 中列出的任何服务的外设。请注意，此集合可能包括由其他应用程序连接的外设，这些外设需要通过{@link connectPeripheral:options:}在本地连接后才能使用。
+/// @@return		一个 CBPeripheral 对象的列表。
+/// @available(iOS 7.0, *)
+open func retrieveConnectedPeripherals(withServices serviceUUIDs: [CBUUID]) -> [CBPeripheral]
 
-    /// @method scanForPeripheralsWithServices:options:
-    /// @param serviceUUIDs 一个 CBUUID 对象的列表，表示要扫描的服务。
-    /// @param options      一个可选字典，指定扫描选项。
-    /// @discussion         开始扫描广播任何 serviceUUIDs 中列出的服务的外设。虽然强烈不推荐，但如果 serviceUUIDs 为 nil ，将返回所有发现的外设。如果中心设备已经在使用不同的 serviceUUIDs 或 options 进行扫描，则提供的参数将替换它们。已指定 bluetooth-central 后台模式的应用程序允许在后台进行扫描，但有两个限制：扫描必须指定 serviceUUIDs 中的一个或多个服务类型，并且会忽略 CBCentralManagerScanOptionAllowDuplicatesKey 扫描选项。
-    /// @see                centralManager:didDiscoverPeripheral:advertisementData:RSSI:
-    /// @seealso            CBCentralManagerScanOptionAllowDuplicatesKey
-    /// @seealso			CBCentralManagerScanOptionSolicitedServiceUUIDsKey
-    open func scanForPeripherals(withServices serviceUUIDs: [CBUUID]?, options: [String : Any]? = nil)
+/// @method scanForPeripheralsWithServices:options:
+/// @param serviceUUIDs 一个 CBUUID 对象的列表，表示要扫描的服务。
+/// @param options      一个可选字典，指定扫描选项。
+/// @discussion         开始扫描广播任何 serviceUUIDs 中列出的服务的外设。虽然强烈不推荐，但如果 serviceUUIDs 为 nil ，将返回所有发现的外设。如果中心设备已经在使用不同的 serviceUUIDs 或 options 进行扫描，则提供的参数将替换它们。已指定 bluetooth-central 后台模式的应用程序允许在后台进行扫描，但有两个限制：扫描必须指定 serviceUUIDs 中的一个或多个服务类型，并且会忽略 CBCentralManagerScanOptionAllowDuplicatesKey 扫描选项。
+/// @see                centralManager:didDiscoverPeripheral:advertisementData:RSSI:
+/// @seealso            CBCentralManagerScanOptionAllowDuplicatesKey
+/// @seealso			CBCentralManagerScanOptionSolicitedServiceUUIDsKey
+open func scanForPeripherals(withServices serviceUUIDs: [CBUUID]?, options: [String : Any]? = nil)
 
-    /// @method stopScan
-    /// @discussion 停止扫描外设。
-    open func stopScan()
+/// @method stopScan
+/// @discussion 停止扫描外设。
+open func stopScan()
 
-    /// @method connectPeripheral:options:
-    /// @param peripheral   要连接的外设。
-    /// @param options      一个可选字典，指定连接行为选项。
-    /// @discussion         发起与 peripheral 的连接。连接尝试永远不会超时，并且根据结果，将调用{@link centralManager:didConnectPeripheral:}或{@link centralManager:didFailToConnectPeripheral:error:}。当 peripheral 被释放时，挂起的尝试将自动取消，也可以通过{@link cancelPeripheralConnection}显式取消。
-    /// @see                centralManager:didConnectPeripheral:
-    /// @see                centralManager:didFailToConnectPeripheral:error:
-    /// @seealso            CBConnectPeripheralOptionNotifyOnConnectionKey
-    /// @seealso            CBConnectPeripheralOptionNotifyOnDisconnectionKey
-    /// @seealso            CBConnectPeripheralOptionNotifyOnNotificationKey
-    /// @seealso            CBConnectPeripheralOptionEnableTransportBridgingKey
-    /// @seealso			CBConnectPeripheralOptionRequiresANCS
-    /// @seealso            CBConnectPeripheralOptionEnableAutoReconnect
-    open func connect(_ peripheral: CBPeripheral, options: [String : Any]? = nil)
+/// @method connectPeripheral:options:
+/// @param peripheral   要连接的外设。
+/// @param options      一个可选字典，指定连接行为选项。
+/// @discussion         发起与 peripheral 的连接。连接尝试永远不会超时，并且根据结果，将调用{@link centralManager:didConnectPeripheral:}或{@link centralManager:didFailToConnectPeripheral:error:}。当 peripheral 被释放时，挂起的尝试将自动取消，也可以通过{@link cancelPeripheralConnection}显式取消。
+/// @see                centralManager:didConnectPeripheral:
+/// @see                centralManager:didFailToConnectPeripheral:error:
+/// @seealso            CBConnectPeripheralOptionNotifyOnConnectionKey
+/// @seealso            CBConnectPeripheralOptionNotifyOnDisconnectionKey
+/// @seealso            CBConnectPeripheralOptionNotifyOnNotificationKey
+/// @seealso            CBConnectPeripheralOptionEnableTransportBridgingKey
+/// @seealso			CBConnectPeripheralOptionRequiresANCS
+/// @seealso            CBConnectPeripheralOptionEnableAutoReconnect
+open func connect(_ peripheral: CBPeripheral, options: [String : Any]? = nil)
 
-    /// @method cancelPeripheralConnection:
-    /// @param peripheral   一个 CBPeripheral 对象。
-    /// @discussion         取消与 peripheral 的活跃或挂起的连接。请注意，这是非阻塞的，并且仍然挂起到 peripheral 的任何 CBPeripheral 命令可能会或可能不会完成。
-    /// @see                centralManager:didDisconnectPeripheral:error:
-    open func cancelPeripheralConnection(_ peripheral: CBPeripheral)
+/// @method cancelPeripheralConnection:
+/// @param peripheral   一个 CBPeripheral 对象。
+/// @discussion         取消与 peripheral 的活跃或挂起的连接。请注意，这是非阻塞的，并且仍然挂起到 peripheral 的任何 CBPeripheral 命令可能会或可能不会完成。
+/// @see                centralManager:didDisconnectPeripheral:error:
+open func cancelPeripheralConnection(_ peripheral: CBPeripheral)
 
-    /// @method registerForConnectionEventsWithOptions:
-    /// @param options		一个字典，指定连接事件选项。
-    /// @discussion     	当发生与给定选项匹配的连接事件时，调用{@link centralManager:connectionEventDidOccur:forPeripheral:}。在option参数中传递nil将清除任何先前注册的匹配选项。
-    /// @see				centralManager:connectionEventDidOccur:forPeripheral:
-    /// @seealso        	CBConnectionEventMatchingOptionServiceUUIDs
-    /// @seealso            CBConnectionEventMatchingOptionPeripheralUUIDs
-    /// @available(iOS 13.0, *)
-    open func registerForConnectionEvents(options: [CBConnectionEventMatchingOption : Any]? = nil)
+/// @method registerForConnectionEventsWithOptions:
+/// @param options		一个字典，指定连接事件选项。
+/// @discussion     	当发生与给定选项匹配的连接事件时，调用{@link centralManager:connectionEventDidOccur:forPeripheral:}。在option参数中传递nil将清除任何先前注册的匹配选项。
+/// @see				centralManager:connectionEventDidOccur:forPeripheral:
+/// @seealso        	CBConnectionEventMatchingOptionServiceUUIDs
+/// @seealso            CBConnectionEventMatchingOptionPeripheralUUIDs
+/// @available(iOS 13.0, *)
+open func registerForConnectionEvents(options: [CBConnectionEventMatchingOption : Any]? = nil)
 }
+
 ```
 ## 四、 CBCentralManagerDelegate 协议详解
 `CBCentralManagerDelegate` 协议定义了当使用 `CBCentralManager` 类进行蓝牙低功耗（BLE）通信时，中心设备（Central Device）应如何响应各种蓝牙事件。该协议包含了一系列的方法，用于处理中心设备状态的变化、外设的发现与连接、以及连接过程中的各种事件。下面是对该协议中各个方法的详细解释：
@@ -215,87 +218,91 @@ centralManager.registerForConnectionEvents(options: [CBConnectionEventMatchingOp
   - 当连接事件发生时调用，这些事件包括外设的连接或断开。此方法通过 `registerForConnectionEventsWithOptions(_:)` 方法注册感兴趣的事件。
 - **centralManager(_:didUpdateANCSAuthorizationForPeripheral:)**
   - 当连接到需要Apple Notification Center Service（ANCS）的外设时，如果授权状态发生变化，则调用此方法。这允许应用根据新的授权状态调整其行为。
+
 ### 4.3 API 原文翻译 
+
 ```swift
-    /// @protocol CBCentralManagerDelegate
-    /// @discussion CBCentralManager对象的代理必须遵循 CBCentralManagerDelegate 协议。该协议中的唯一必需方法用于指示中心管理器的可用性，而可选方法则允许发现和连接外设。
-    public protocol CBCentralManagerDelegate : NSObjectProtocol {
 
-    /// @method centralManagerDidUpdateState:
-    /// @param central  状态已更改的中心管理器。
-    /// @discussion     每当中心管理器的状态更新时调用。仅当状态为 CBCentralManagerStatePoweredOn 时才应发出命令。低于 CBCentralManagerStatePoweredOn 的状态意味着扫描已停止，并且所有已连接的外设都已被断开连接。如果状态降至 CBCentralManagerStatePoweredOff 以下，则从此中心管理器获得的所有 CBPeripheral 对象都将失效，并必须重新检索或发现。
-    /// @see            state
-    /// @available(iOS 5.0, *)
-    func centralManagerDidUpdateState(_ central: CBCentralManager)
+/// @protocol CBCentralManagerDelegate
+/// @discussion CBCentralManager对象的代理必须遵循 CBCentralManagerDelegate 协议。该协议中的唯一必需方法用于指示中心管理器的可用性，而可选方法则允许发现和连接外设。
+public protocol CBCentralManagerDelegate : NSObjectProtocol {
 
-    /// @method centralManager:willRestoreState:
-    /// @param central      提供此信息的中心管理器。
-    /// @param dict			一个字典，包含应用终止时系统保留的关于 central 的信息。
-    /// @discussion			对于选择启用状态保存和恢复的应用程序，当您的应用在后台重新启动以完成某些蓝牙相关任务时，将首先调用此方法。使用此方法将您的应用程序状态与蓝牙系统状态同步。
-    /// @seealso            CBCentralManagerRestoredStatePeripheralsKey;
-    /// @seealso            CBCentralManagerRestoredStateScanServicesKey;
-    /// @seealso            CBCentralManagerRestoredStateScanOptionsKey;
-    /// @available(iOS 5.0, *)
-    optional func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any])
+/// @method centralManagerDidUpdateState:
+/// @param central  状态已更改的中心管理器。
+/// @discussion     每当中心管理器的状态更新时调用。仅当状态为 CBCentralManagerStatePoweredOn 时才应发出命令。低于 CBCentralManagerStatePoweredOn 的状态意味着扫描已停止，并且所有已连接的外设都已被断开连接。如果状态降至 CBCentralManagerStatePoweredOff 以下，则从此中心管理器获得的所有 CBPeripheral 对象都将失效，并必须重新检索或发现。
+/// @see            state
+/// @available(iOS 5.0, *)
+func centralManagerDidUpdateState(_ central: CBCentralManager)
 
-    /// @method centralManager:didDiscoverPeripheral:advertisementData:RSSI:
-    /// @param central              提供此更新的中心管理器。
-    /// @param peripheral           一个 CBPeripheral 对象。
-    /// @param advertisementData    一个包含任何广告和扫描响应数据的字典。
-    /// @param RSSI                  peripheral 的当前RSSI值，单位为dBm。值 127 保留，表示RSSI不可用。
-    /// @discussion                 在扫描过程中，当 central 发现 peripheral 时调用此方法。必须保留发现的外设以便使用它；否则，它将被视为不感兴趣并由中心管理器清理。有关 advertisementData 键的列表，请参阅{@link CBAdvertisementDataLocalNameKey}和其他类似常量。
-    /// @seealso                    CBAdvertisementData.h
-    /// @available(iOS 5.0, *)
-    optional func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber)
+/// @method centralManager:willRestoreState:
+/// @param central      提供此信息的中心管理器。
+/// @param dict			一个字典，包含应用终止时系统保留的关于 central 的信息。
+/// @discussion			对于选择启用状态保存和恢复的应用程序，当您的应用在后台重新启动以完成某些蓝牙相关任务时，将首先调用此方法。使用此方法将您的应用程序状态与蓝牙系统状态同步。
+/// @seealso            CBCentralManagerRestoredStatePeripheralsKey;
+/// @seealso            CBCentralManagerRestoredStateScanServicesKey;
+/// @seealso            CBCentralManagerRestoredStateScanOptionsKey;
+/// @available(iOS 5.0, *)
+optional func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any])
 
-    /// @method centralManager:didConnectPeripheral:
-    /// @param central      提供此信息的中心管理器。
-    /// @param peripheral   已连接的 CBPeripheral 。
-    /// @discussion         当通过{@link connectPeripheral:options:}发起的连接成功时调用此方法。
-    /// @available(iOS 5.0, *)
-    optional func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral)
+/// @method centralManager:didDiscoverPeripheral:advertisementData:RSSI:
+/// @param central              提供此更新的中心管理器。
+/// @param peripheral           一个 CBPeripheral 对象。
+/// @param advertisementData    一个包含任何广告和扫描响应数据的字典。
+/// @param RSSI                  peripheral 的当前RSSI值，单位为dBm。值 127 保留，表示RSSI不可用。
+/// @discussion                 在扫描过程中，当 central 发现 peripheral 时调用此方法。必须保留发现的外设以便使用它；否则，它将被视为不感兴趣并由中心管理器清理。有关 advertisementData 键的列表，请参阅{@link CBAdvertisementDataLocalNameKey}和其他类似常量。
+/// @seealso                    CBAdvertisementData.h
+/// @available(iOS 5.0, *)
+optional func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber)
 
-    /// @method centralManager:didFailToConnectPeripheral:error:
-    /// @param central      提供此信息的中心管理器。
-    /// @param peripheral   连接失败的 CBPeripheral 。
-    /// @param error        失败的原因。
-    /// @discussion         当通过{@link connectPeripheral:options:}发起的连接未能完成时调用此方法。由于连接尝试不会超时，因此连接失败是不典型的，并且通常表明存在瞬态问题。
-    /// @available(iOS 5.0, *)
-    optional func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: (any Error)?)
+/// @method centralManager:didConnectPeripheral:
+/// @param central      提供此信息的中心管理器。
+/// @param peripheral   已连接的 CBPeripheral 。
+/// @discussion         当通过{@link connectPeripheral:options:}发起的连接成功时调用此方法。
+/// @available(iOS 5.0, *)
+optional func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral)
 
-    /// @method centralManager:didDisconnectPeripheral:error:
-    /// @param central      提供此信息的中心管理器。
-    /// @param peripheral   已断开连接的 CBPeripheral 。
-    /// @param error        如果发生错误，则为失败的原因。
-    /// @discussion         当通过{@link connectPeripheral:options:}连接的外设断开连接时调用此方法。如果断开连接不是由{@link cancelPeripheralConnection}发起的，则错误参数将详细说明原因。一旦调用此方法，将不再在 peripheral 的 CBPeripheralDelegate 上调用更多方法。
-    /// @available(iOS 5.0, *)
-    optional func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: (any Error)?)
+/// @method centralManager:didFailToConnectPeripheral:error:
+/// @param central      提供此信息的中心管理器。
+/// @param peripheral   连接失败的 CBPeripheral 。
+/// @param error        失败的原因。
+/// @discussion         当通过{@link connectPeripheral:options:}发起的连接未能完成时调用此方法。由于连接尝试不会超时，因此连接失败是不典型的，并且通常表明存在瞬态问题。
+/// @available(iOS 5.0, *)
+optional func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: (any Error)?)
 
-    /// @method centralManager:didDisconnectPeripheral:timestamp:isReconnecting:error
-    /// @param central      提供此信息的中心管理器。
-    /// @param peripheral   已断开连接的 CBPeripheral 。
-    /// @param timestamp        断开连接的时间戳，可能是现在或几秒钟前。
-    /// @param isReconnecting      如果断开连接时触发了重新连接。
-    /// @param error        如果发生错误，则为失败的原因。
-    /// @discussion         当通过{@link connectPeripheral:options:}连接的外设断开连接时调用此方法。如果外设是使用连接选项{@link CBConnectPeripheralOptionEnableAutoReconnect}连接的，则调用此方法后，系统将自动尝试重新连接到外设。如果之后成功建立了与外设的连接，则可能会调用{@link centralManager:didConnectPeripheral:}。如果外设是在没有选项CBConnectPeripheralOptionEnableAutoReconnect的情况下连接的，则调用此方法后，将不再在 peripheral 的 CBPeripheralDelegate 上调用更多方法。
-    /// @available(iOS 5.0, *)
-    optional func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, timestamp: CFAbsoluteTime, isReconnecting: Bool, error: (any Error)?)
+/// @method centralManager:didDisconnectPeripheral:error:
+/// @param central      提供此信息的中心管理器。
+/// @param peripheral   已断开连接的 CBPeripheral 。
+/// @param error        如果发生错误，则为失败的原因。
+/// @discussion         当通过{@link connectPeripheral:options:}连接的外设断开连接时调用此方法。如果断开连接不是由{@link cancelPeripheralConnection}发起的，则错误参数将详细说明原因。一旦调用此方法，将不再在 peripheral 的 CBPeripheralDelegate 上调用更多方法。
+/// @available(iOS 5.0, *)
+optional func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: (any Error)?)
 
-    /// @method centralManager:connectionEventDidOccur:forPeripheral:
-    /// @param central      提供此信息的中心管理器。
-    /// @param event		已发生的 CBConnectionEvent 。
-    /// @param peripheral   触发事件的 CBPeripheral 。
-    /// @discussion         当发生与通过{@link registerForConnectionEventsWithOptions:}提供的选项之一匹配的外设的连接或断开连接时调用此方法。
-    /// @available(iOS 13.0, *)
-    optional func centralManager(_ central: CBCentralManager, connectionEventDidOccur event: CBConnectionEvent, for peripheral: CBPeripheral)
+/// @method centralManager:didDisconnectPeripheral:timestamp:isReconnecting:error
+/// @param central      提供此信息的中心管理器。
+/// @param peripheral   已断开连接的 CBPeripheral 。
+/// @param timestamp        断开连接的时间戳，可能是现在或几秒钟前。
+/// @param isReconnecting      如果断开连接时触发了重新连接。
+/// @param error        如果发生错误，则为失败的原因。
+/// @discussion         当通过{@link connectPeripheral:options:}连接的外设断开连接时调用此方法。如果外设是使用连接选项{@link CBConnectPeripheralOptionEnableAutoReconnect}连接的，则调用此方法后，系统将自动尝试重新连接到外设。如果之后成功建立了与外设的连接，则可能会调用{@link centralManager:didConnectPeripheral:}。如果外设是在没有选项CBConnectPeripheralOptionEnableAutoReconnect的情况下连接的，则调用此方法后，将不再在 peripheral 的 CBPeripheralDelegate 上调用更多方法。
+/// @available(iOS 5.0, *)
+optional func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, timestamp: CFAbsoluteTime, isReconnecting: Bool, error: (any Error)?)
 
-    /// @method centralManager:didUpdateANCSAuthorizationForPeripheral:
-    /// @param central      提供此信息的中心管理器。
-    /// @param peripheral   触发事件的 CBPeripheral 。
-    /// @discussion         当使用{@link connectPeripheral:}选项{@link CBConnectPeripheralOptionRequiresANCS}连接的外设的授权状态更改时调用此方法。
-    /// @available(iOS 13.0, *)
-    optional func centralManager(_ central: CBCentralManager, didUpdateANCSAuthorizationFor peripheral: CBPeripheral)
+/// @method centralManager:connectionEventDidOccur:forPeripheral:
+/// @param central      提供此信息的中心管理器。
+/// @param event		已发生的 CBConnectionEvent 。
+/// @param peripheral   触发事件的 CBPeripheral 。
+/// @discussion         当发生与通过{@link registerForConnectionEventsWithOptions:}提供的选项之一匹配的外设的连接或断开连接时调用此方法。
+/// @available(iOS 13.0, *)
+optional func centralManager(_ central: CBCentralManager, connectionEventDidOccur event: CBConnectionEvent, for peripheral: CBPeripheral)
+
+/// @method centralManager:didUpdateANCSAuthorizationForPeripheral:
+/// @param central      提供此信息的中心管理器。
+/// @param peripheral   触发事件的 CBPeripheral 。
+/// @discussion         当使用{@link connectPeripheral:}选项{@link CBConnectPeripheralOptionRequiresANCS}连接的外设的授权状态更改时调用此方法。
+/// @available(iOS 13.0, *)
+optional func centralManager(_ central: CBCentralManager, didUpdateANCSAuthorizationFor peripheral: CBPeripheral)
 }
+
 ```
 ### 4.4 使用示例
 假设你正在开发一个需要连接BLE外设的应用，你可能会这样实现 `CBCentralManagerDelegate`：
