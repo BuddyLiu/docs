@@ -51,6 +51,7 @@ defaults:
       author: "Buddy"
       header-img: img/post-bg-debug.png
       catalog: true
+      featured-tags: true
 
 # ------------
 # 右侧边栏设置
