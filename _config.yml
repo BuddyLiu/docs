@@ -49,7 +49,7 @@ defaults:
     values:
       layout: "post"
       author: "Buddy"
-      header-img: img/post-bg-debug.png
+      header-img: img/post-bg-debug-detail.jpg
       catalog: true
       featured-tags: true
 
