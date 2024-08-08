@@ -31,6 +31,14 @@ git remote add origin https://github.com/your-username/your-repo-name.git
 
 在你的本地仓库中，创建你的Pod代码。这可能是一个iOS库、一个工具类或任何其他你想要分享的代码。确保你的代码是模块化的，并且有一个清晰的目录结构。
 
+你可以使用CocoaPods提供的pod lib create命令来创建一个新的Pod项目。这个命令会为你生成一个包含必要文件和目录结构的Pod模板。
+
+```bash
+pod lib create YourPodName
+```
+
+执行这个命令后，CocoaPods会询问你一些关于Pod的基本信息，比如名称、版本、语言等。填写完这些信息后，CocoaPods会为你创建一个新的Pod项目，并生成一个Podspec文件。
+
 #### 4. 编写Podspec文件
 
 Podspec文件是一个描述你的Pod的元数据文件。它包含了Pod的名称、版本、源代码位置、依赖项等信息。在你的仓库的根目录下创建一个Podspec文件，并填写必要的信息。
@@ -125,9 +133,7 @@ A short description of your Pod. This should summarize what your Pod does and wh
 YourPodName is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
-```ruby
 pod 'YourPodName'
-```
 
 ## Usage
 
@@ -135,11 +141,9 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 Here's an example of how to use YourPodName in your code:
 
-```swift
 import YourPodName
 
 // Use your Pod's functionality here
-```
 
 ## Author
 
