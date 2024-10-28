@@ -1,0 +1,180 @@
+<!DOCTYPE html><html><head>
+      <title>Xcode搜索功能深度解析</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<p>在Xcode中，搜索功能是一个强大且灵活的工具，它可以帮助开发人员快速定位和浏览代码中的特定部分。Xcode的搜索功能不仅限于基本的文本搜索，还提供了诸如正则表达式搜索、符号搜索、调用层次结构搜索等高级选项。本文将详细介绍Xcode搜索功能中的Text、Regular Expression、Symbols、Ancestor Types、Descendant Types、Confirming Types、Call Hierarchy等选项的功能和使用方法。</p>
+<h2 id="一-text文本搜索">一、Text（文本搜索） </h2>
+<h3 id="功能介绍">功能介绍 </h3>
+<p>Text选项是Xcode中最基本的搜索功能。它允许用户在整个项目中搜索包含指定文本的文件和代码行。这种搜索方式适用于快速定位包含特定字符串或关键词的代码位置。</p>
+<h3 id="使用方法">使用方法 </h3>
+<ol>
+<li>打开Xcode项目。</li>
+<li>在菜单栏中选择“Find” -&gt; “Find in Project”，或者使用快捷键Command + Shift + F。</li>
+<li>在弹出的搜索框中输入你要搜索的文本。</li>
+<li>选择搜索选项，如“Match Case”（区分大小写）。</li>
+<li>点击“Find”开始搜索。Xcode将在整个项目中搜索匹配的文件或关键字，并在搜索结果导航器中显示结果。</li>
+</ol>
+<h2 id="二-regular-expression正则表达式搜索">二、Regular Expression（正则表达式搜索） </h2>
+<h3 id="功能介绍-1">功能介绍 </h3>
+<p>Regular Expression选项允许用户使用正则表达式进行搜索。正则表达式是一种强大的文本处理工具，可以用于匹配复杂的文本模式。在Xcode中，正则表达式搜索可以帮助开发人员快速定位包含特定模式的代码行。</p>
+<h3 id="使用方法-1">使用方法 </h3>
+<ol>
+<li>打开Xcode项目。</li>
+<li>在菜单栏中选择“Find” -&gt; “Find in Project”，或者使用快捷键Command + Shift + F。</li>
+<li>在弹出的搜索框中输入你要搜索的正则表达式。</li>
+<li>勾选“Regular Expression”选项。</li>
+<li>选择其他搜索选项，如“Match Case”（区分大小写）。</li>
+<li>点击“Find”开始搜索。Xcode将使用正则表达式在整个项目中搜索匹配的文件或代码行，并在搜索结果导航器中显示结果。</li>
+</ol>
+<h2 id="三-symbols符号搜索">三、Symbols（符号搜索） </h2>
+<h3 id="功能介绍-2">功能介绍 </h3>
+<p>Symbols选项允许用户在项目中搜索特定的符号，如函数、变量、类、结构体等代码元素。这种搜索方式适用于快速定位特定的代码元素，提高开发效率。</p>
+<h3 id="使用方法-2">使用方法 </h3>
+<ol>
+<li>打开Xcode项目。</li>
+<li>在菜单栏中选择“Find” -&gt; “Find in Project”，或者使用快捷键Command + Shift + F。</li>
+<li>在弹出的搜索框中输入你要搜索的符号名称。</li>
+<li>选择搜索选项，如“Match Case”（区分大小写）。</li>
+<li>点击“Find”开始搜索。Xcode将在整个项目中搜索匹配的符号，并在搜索结果导航器中显示结果。你可以点击搜索结果导航器中的文件来查看和编辑符号定义。</li>
+</ol>
+<h2 id="四-ancestor-types-descendant-types-confirming-types">四、Ancestor Types、Descendant Types、Confirming Types </h2>
+<h3 id="功能介绍-3">功能介绍 </h3>
+<p>Ancestor Types、Descendant Types、Confirming Types是Xcode中用于搜索类继承关系的选项。这些选项允许用户根据类的继承关系来搜索特定的类。</p>
+<ul>
+<li>Ancestor Types：搜索当前类的所有祖先类。</li>
+<li>Descendant Types：搜索当前类的所有后代类。</li>
+<li>Confirming Types：搜索实现特定协议的类。</li>
+</ul>
+<h3 id="使用方法-3">使用方法 </h3>
+<ol>
+<li>打开Xcode项目。</li>
+<li>在菜单栏中选择“Find” -&gt; “Find in Project”，或者使用快捷键Command + Shift + F。</li>
+<li>在弹出的搜索框中输入你要搜索的类名或协议名。</li>
+<li>选择搜索选项，如“Ancestor Types”、“Descendant Types”或“Confirming Types”。</li>
+<li>点击“Find”开始搜索。Xcode将根据选择的选项搜索相关的类，并在搜索结果导航器中显示结果。</li>
+</ol>
+<h2 id="五-call-hierarchy调用层次结构搜索">五、Call Hierarchy（调用层次结构搜索） </h2>
+<h3 id="功能介绍-4">功能介绍 </h3>
+<p>Call Hierarchy选项允许用户搜索方法的调用层次结构。这种搜索方式适用于快速定位一个方法被哪些其他方法调用，以及它调用了哪些其他方法。</p>
+<h3 id="使用方法-4">使用方法 </h3>
+<ol>
+<li>打开Xcode项目。</li>
+<li>在代码编辑器中选择你要搜索的方法名。</li>
+<li>在菜单栏中选择“Navigate” -&gt; “Call Hierarchy”，或者使用快捷键Command + Shift + H。</li>
+<li>Xcode将显示该方法的调用层次结构。你可以点击层次结构中的不同节点来查看调用关系。</li>
+</ol>
+<h2 id="六-高级搜索选项和技巧">六、高级搜索选项和技巧 </h2>
+<p>Xcode作为苹果公司提供的集成开发环境（IDE），其搜索功能不仅强大而且灵活。除了基本的搜索选项外，Xcode还提供了许多高级搜索选项和技巧，帮助开发人员更高效地定位和浏览代码。以下是对这些高级搜索选项和技巧的详细讲解，并附上示例。</p>
+<h3 id="1-自定义搜索范围">1. 自定义搜索范围 </h3>
+<p><strong>功能说明</strong>：</p>
+<p>Xcode允许用户自定义搜索范围，这意味着你可以指定搜索特定的文件夹、文件类型或代码区域。通过缩小搜索范围，可以显著提高搜索效率，减少不必要的干扰。</p>
+<p><strong>使用示例</strong>：</p>
+<p>假设你正在一个大型项目中工作，并且只想搜索某个特定文件夹下的<code>.swift</code>文件。你可以按照以下步骤操作：</p>
+<ol>
+<li>打开Xcode项目。</li>
+<li>在菜单栏中选择“Find” -&gt; “Find in Project”，或者使用快捷键Command + Shift + F。</li>
+<li>在弹出的搜索框中输入你要搜索的关键词。</li>
+<li>点击搜索框下方的“Scope”按钮（通常显示为一个文件夹图标）。</li>
+<li>在弹出的范围选择器中，你可以选择特定的文件夹、文件类型或代码区域。例如，你可以选择项目中的某个文件夹，并将文件类型限制为<code>.swift</code>。</li>
+<li>点击“Find”开始搜索。Xcode将仅在你指定的范围内搜索匹配的关键词。</li>
+</ol>
+<h3 id="2-使用搜索通配符">2. 使用搜索通配符 </h3>
+<p><strong>功能说明</strong>：</p>
+<p>Xcode支持在搜索中使用通配符，如“*”表示任意字符序列，“?”表示任意单个字符。这在进行模糊搜索时非常有用，尤其是当你不确定完整搜索词时。</p>
+<p><strong>使用示例</strong>：</p>
+<p>假设你正在搜索一个包含特定前缀的函数名，但不确定函数名的具体后缀。你可以使用通配符来进行模糊搜索。例如：</p>
+<ol>
+<li>打开Xcode项目。</li>
+<li>在菜单栏中选择“Find” -&gt; “Find in Project”，或者使用快捷键Command + Shift + F。</li>
+<li>在弹出的搜索框中输入你要搜索的前缀加上通配符。例如，如果你正在搜索所有以“load”开头的函数名，可以输入“load*”。</li>
+<li>点击“Find”开始搜索。Xcode将搜索所有包含以“load”开头的函数名，无论其后缀是什么。</li>
+</ol>
+<h3 id="3-利用搜索选项过滤结果">3. 利用搜索选项过滤结果 </h3>
+<p><strong>功能说明</strong>：</p>
+<p>Xcode的搜索功能提供了多种选项来过滤搜索结果，如“Match Case”（区分大小写）、“Whole Word”（全词匹配）、“Wrap Around”（循环搜索）等。这些选项可以帮助你更精确地控制搜索行为，提高搜索结果的准确性。</p>
+<p><strong>使用示例</strong>：</p>
+<p>假设你正在搜索一个特定的变量名，但希望搜索结果严格区分大小写。你可以按照以下步骤操作：</p>
+<ol>
+<li>打开Xcode项目。</li>
+<li>在菜单栏中选择“Find” -&gt; “Find in Project”，或者使用快捷键Command + Shift + F。</li>
+<li>在弹出的搜索框中输入你要搜索的变量名。</li>
+<li>点击搜索框下方的“Options”按钮（通常显示为一个齿轮图标）。</li>
+<li>在弹出的选项菜单中，勾选“Match Case”（区分大小写）选项。</li>
+<li>点击“Find”开始搜索。Xcode将仅搜索与输入变量名大小写完全匹配的结果。</li>
+</ol>
+<h3 id="4-快捷键操作">4. 快捷键操作 </h3>
+<p><strong>功能说明</strong>：</p>
+<p>Xcode提供了一系列快捷键来快速执行搜索操作。这些快捷键可以显著提高开发效率，减少鼠标点击次数。</p>
+<p><strong>常用快捷键</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command + F</td>
+<td>在当前文件中搜索文本</td>
+</tr>
+<tr>
+<td>Command + Option + F</td>
+<td>在当前文件中查找和替换文本</td>
+</tr>
+<tr>
+<td>Command + Shift + F</td>
+<td>在整个项目中搜索文本</td>
+</tr>
+<tr>
+<td>Command + G</td>
+<td>查找下一个匹配项</td>
+</tr>
+<tr>
+<td>Command + Shift + G</td>
+<td>查找上一个匹配项</td>
+</tr>
+<tr>
+<td>Esc</td>
+<td>退出搜索模式</td>
+</tr>
+</tbody>
+</table>
+<p>通过掌握这些快捷键，你可以更加高效地利用Xcode的搜索功能，提高开发效率。</p>
+<p>综上所述，Xcode的高级搜索选项和技巧为开发人员提供了强大的搜索能力。通过自定义搜索范围、使用搜索通配符、利用搜索选项过滤结果以及掌握快捷键操作，开发人员可以更加高效地定位和浏览代码，从而提高开发效率和质量。</p>
+<h2 id="七-结论">七、结论 </h2>
+<p>Xcode的搜索功能是一个强大且灵活的工具，它可以帮助开发人员快速定位和浏览代码中的特定部分。通过掌握Text、Regular Expression、Symbols、Ancestor Types、Descendant Types、Confirming Types、Call Hierarchy等选项的功能和使用方法，开发人员可以更加高效地进行代码开发和维护。同时，利用自定义搜索范围、搜索通配符、搜索选项过滤结果和快捷键操作等高级技巧和选项，可以进一步提高搜索效率和准确性。</p>
+
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>
