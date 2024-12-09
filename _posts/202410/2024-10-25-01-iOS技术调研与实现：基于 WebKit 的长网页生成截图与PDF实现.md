@@ -28,7 +28,7 @@ WKWebView 是 WebKit 框架在 iOS 和 macOS 中提供的一个用于网页渲�
 
 ### 2.3 截图原理
 
-截取长网页的关键在于如何获取整个网页的内容，并将其转换为一张图片或PDF。基本思路是：
+截取长网页的关键在于如何获取整个网页的内容，并将其转换为长图或PDF。基本思路是：
 
 1. 使用 WKWebView 加载网页。
 2. 调整 WKWebView 的 frame 以适应网页的全部内容。
@@ -150,7 +150,13 @@ func createPDF(paperRect: CGRect, completion: @escaping (Data?) -> Void) {
 }
 ```
 
-### 4.6 完整代码 Demo
+### 4.6 生成结果
+
+[截图](http://uimwiki.united-imaging.com/download/thumbnails/95400029/IMG_0070.JPG?version=1&modificationDate=1730103881713&api=v2)
+
+[PDF](http://uimwiki.united-imaging.com/pages/viewpage.action?pageId=95400029&preview=%2F95400029%2F95400119%2F报告单+3.pdf)
+
+### 4.7 完整代码 Demo
 
 - **[完整代码 Demo](http://uimwiki.united-imaging.com/pages/viewpage.action?pageId=95400029&preview=%2F95400029%2F95400037%2FWebViewCapture.zip)**
 
@@ -183,71 +189,113 @@ private func screenshot(scrollView: UIScrollView, size: CGSize) -> UIImage? {
     return image
 }
 
-// WKWebView 的扩展，增加了创建 PDF 文件的功能
+// WKWebView 扩展：增加创建 PDF 文件的功能
 extension WKWebView {
-    
     /// 创建PDF文件
     /// - Parameters:
     ///   - paperRect: 单页尺寸大小，例如 A4 纸的大小
-    ///   - completion: 完成回调，当 PDF 创建完成后会调用此回调，并传入生成的 PDF 数据（如果成功）或 nil（如果失败）
-    func createPDF(paperRect: CGRect, completion: @escaping (Data?) -> Void) {
-        // 创建一个 UIPrintPageRenderer 实例，用于渲染和打印网页内容
-        let printPageRenderer = UIPrintPageRenderer()
+    ///   - margins: 页面的边距，默认 0
+    ///   - fileURL: 可选的文件路径，默认保存到 Cache 目录
+    ///   - fileName: 可选的文件名，默认使用网页的 title
+    ///   - startPage: 可选的开始页码，默认从第一页开始
+    ///   - maxPages: 可选的最大页数，默认打印全部页数
+    ///   - completion: 完成回调，传入生成的 PDF 数据和文件路径
+    ///   - error: 可选的错误回调，如果生成 PDF 过程中发生错误，将返回错误信息
+    func createPDF(
+        paperRect: CGRect,
+        margins: UIEdgeInsets = .zero,
+        fileURL: URL? = nil,
+        fileName: String? = nil,
+        startPage: Int = 0,
+        maxPages: Int = Int.max,
+        completion: @escaping (Data?, URL?) -> Void,
+        error: ((String) -> Void)? = nil
+    ) {
+        // 计算打印区域，应用边距
+        let printableRect = paperRect.inset(by: margins)
         
-        // 将 WKWebView 的内容添加到打印格式器中，以便可以将其打印或导出为 PDF
-        printPageRenderer.addPrintFormatter(self.viewPrintFormatter(), startingAtPageAt: 0)
+        // 使用 CustomPrintPageRenderer 来自定义页面尺寸和打印区域
+        let printRenderer = PDFPrintPageRenderer(paperRect: paperRect, printableRect: printableRect, startPage: startPage, maxPages: maxPages)
         
-        // 设置可打印区域，这里我们将其设置为与纸张大小相同，没有边距
-        let printableRect = paperRect.insetBy(dx: 0, dy: 0)
-        // 设置纸张大小
-        printPageRenderer.setValue(NSValue(cgRect: paperRect), forKey: "paperRect")
-        // 设置可打印区域大小
-        printPageRenderer.setValue(NSValue(cgRect: printableRect), forKey: "printableRect")
+        // 获取网页的标题作为默认文件名
+        let defaultFileName = fileName ?? (self.title ?? "glocuse_report".localized) + ".PDF"
         
-        // 调用 generatePDF 方法生成 PDF 数据
-        let pdfData = printPageRenderer.generatePDF()
+        // 使用 Cache 目录作为默认文件路径
+        let defaultFileURL = fileURL ?? FileManager.default.temporaryDirectory.appendingPathComponent(defaultFileName)
         
-        // 调用完成回调，并将生成的 PDF 数据作为参数传递
-        completion(pdfData)
+        // 通过 WKWebView 的 viewPrintFormatter 获取打印格式器
+        let printFormatter = self.viewPrintFormatter()
+        printRenderer.addPrintFormatter(printFormatter, startingAtPageAt: 0)
+        
+        // 3. 设置 PDF 输出路径
+        let pdfData = NSMutableData()
+        UIGraphicsBeginPDFContextToData(pdfData, .zero, nil)
+        
+        // 4. 渲染 PDF
+        for i in 0..<printRenderer.numberOfPages {
+            UIGraphicsBeginPDFPage()
+            printRenderer.drawPage(at: i, in: paperRect)
+        }
+        
+        UIGraphicsEndPDFContext()
+        
+        // 5. 如果 PDF 数据有效，尝试将数据保存为文件
+        if pdfData.length > 0 {
+            do {
+                try pdfData.write(to: defaultFileURL)
+                // 调用完成回调，返回 PDF 数据和文件路径
+                completion(pdfData as Data, defaultFileURL)
+            } catch let saveError {
+                // 如果保存失败，调用错误回调，传递具体错误信息
+                completion(nil, nil)
+                error?(saveError.localizedDescription)
+            }
+        } else {
+            // 如果 PDF 数据为空，直接调用完成回调返回 nil
+            completion(nil, nil)
+        }
     }
 }
 
-// UIPrintPageRenderer 的扩展，增加了生成 PDF 数据的功能
-extension UIPrintPageRenderer {
+// 自定义打印页面渲染器
+class PDFPrintPageRenderer: UIPrintPageRenderer {
+    private var customPaperRect: CGRect
+    private var customPrintableRect: CGRect
+    private var startPage: Int
+    private var maxPages: Int
     
-    /// 创建PDF文件
-    /// - Returns: 生成的 PDF 数据
-    func generatePDF() -> Data {
-        // 创建一个可变数据对象，用于存储生成的 PDF 数据
-        let pdfData = NSMutableData()
-        
-        // 开始 PDF 上下文，将数据对象、纸张大小和页面信息传递给 UIGraphicsBeginPDFContextToData 函数
-        UIGraphicsBeginPDFContextToData(pdfData, self.paperRect, nil)
-        
-        // 准备绘制页面，指定要绘制的页面范围
-        self.prepare(forDrawingPages: NSMakeRange(0, self.numberOfPages))
-        
-        // 获取 PDF 上下文的边界，这通常与设置的纸张大小相同
-        let bounds = UIGraphicsGetPDFContextBounds()
-        
-        // 遍历所有页面，并逐一绘制
-        for i in 0..<self.numberOfPages {
-            // 开始新的一页
-            UIGraphicsBeginPDFPage()
-            // 绘制当前页面
-            self.drawPage(at: i, in: bounds)
-        }
-        
-        // 结束 PDF 上下文，此时所有页面都已绘制完成，PDF 数据已存储在 pdfData 中
-        UIGraphicsEndPDFContext()
-        
-        // 返回生成的 PDF 数据
-        return pdfData as Data
+    // 初始化时传入纸张尺寸、打印区域、开始页码和最大页数
+    init(paperRect: CGRect, printableRect: CGRect, startPage: Int, maxPages: Int) {
+        self.customPaperRect = paperRect
+        self.customPrintableRect = printableRect
+        self.startPage = startPage
+        self.maxPages = maxPages
+        super.init()
+    }
+    
+    // 使用计算属性来提供自定义的页面尺寸
+    override var paperRect: CGRect {
+        return customPaperRect
+    }
+    
+    // 使用计算属性来提供自定义的可打印区域
+    override var printableRect: CGRect {
+        return customPrintableRect
+    }
+    
+    // 设置打印的页数
+    override var numberOfPages: Int {
+        return min(super.numberOfPages - startPage, maxPages)
+    }
+    
+    // 设置打印的起始页码
+    override func drawPage(at index: Int, in rect: CGRect) {
+        super.drawPage(at: index + startPage, in: rect)
     }
 }
 ```
 
-## 5. 风险评估
+## 5. 风险项
 
 1. 网络风险: 在网络较差的情况下，用户使用该工具截图或导出PDF文件将无法导出完整的页面内容。该工具完全依赖WKWebView所展示的内容，能看见的内容才能导出。
 2. 系统和机型适配风险：虽然截图功能最低支持 iOS 2.0 系统，PDF导出功能最低支持 iOS 4.2 系统，但不同设备上导出的效果仍然需要通过兼容性测试一一验证，不保证所有系统所有机型都能导出一致的文件。
